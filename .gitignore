@@ -1,0 +1,57 @@
+# macOS metadata
+.DS_Store
+
+# Windows metadata
+Thumbs.db
+
+# Environment files and virtualenvs
+.env
+.envrc
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# Packaging/build artifacts
+build/
+dist/
+.eggs/
+*.egg-info/
+
+# Coverage and testing
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Logs and temporary files
+logs/
+*.log
+tmp/
+
+# Docker (env-specific compose files)
+docker-compose.override.yml
+docker-compose.dev.yml
+docker-compose.test.yml
+docker-compose.prod.yml
+
+# IDEs
+.vscode/
+.idea/
+

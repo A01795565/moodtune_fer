@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  moodtune_fer:
+    build: .
+    image: moodtune_fer:latest
+    env_file:
+      - .env
+    ports:
+      - "${FER_PUBLIC_PORT:-8081}:8081"
+    restart: unless-stopped
