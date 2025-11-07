@@ -7,6 +7,7 @@ from .src.face import FaceDetector
 from .src.predictor import FerPredictor
 from .routes.health import register_health
 from .routes.infer import register_infer
+from .routes.favicon import register_favicon
 
 
 def create_app() -> FastAPI:
@@ -26,5 +27,6 @@ def create_app() -> FastAPI:
 
     register_health(app, mm)
     register_infer(app, predictor)
+    register_favicon(app)
 
     return app

@@ -14,3 +14,16 @@ def register_infer(app: FastAPI, predictor: FerPredictor) -> None:
         out = predictor.predict(data)
         return JSONResponse(out)
 
+    # Provide a friendly GET handler to avoid 405s when
+    # users or health checks hit `/infer` in a browser.
+    @app.get("/infer", include_in_schema=False)
+    async def infer_info():
+        return JSONResponse(
+            {
+                "endpoint": "/infer",
+                "method": "POST",
+                "field": "image",
+                "content_types": ["image/png", "image/jpeg", "image/jpg"],
+                "message": "Envía una imagen usando POST multipart/form-data en el campo 'image'.",
+            }
+        )
