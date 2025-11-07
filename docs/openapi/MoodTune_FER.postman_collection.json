@@ -1,0 +1,43 @@
+{
+  "info": {
+    "_postman_id": "5f6cf8b7-1c8d-4bca-9f2f-4a4e8b5a4b9a",
+    "name": "MoodTune FER",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for MoodTune FER (FastAPI)."
+  },
+  "item": [
+    {
+      "name": "Health - Check",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "url": { "raw": "{{fer_base_url}}/health", "host": [ "{{fer_base_url}}" ], "path": [ "health" ] },
+        "description": "Service health check"
+      }
+    },
+    {
+      "name": "Infer Emotion",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            { "key": "image", "type": "file", "src": "{{sample_image}}" }
+          ]
+        },
+        "url": { "raw": "{{fer_base_url}}/infer", "host": [ "{{fer_base_url}}" ], "path": [ "infer" ] },
+        "description": "Send image (PNG/JPEG) to get emotion."
+      }
+    },
+    {
+      "name": "Infer Info (GET)",
+      "request": {
+        "method": "GET",
+        "header": [ { "key": "Content-Type", "value": "application/json" } ],
+        "url": { "raw": "{{fer_base_url}}/infer", "host": [ "{{fer_base_url}}" ], "path": [ "infer" ] },
+        "description": "Informational GET for /infer"
+      }
+    }
+  ]
+}

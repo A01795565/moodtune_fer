@@ -15,12 +15,8 @@ confianza (0–1) y `model_version`.
 - Detección de rostro: OpenCV Haar Cascade (mayor rostro). Si no hay rostro → 422.
 - Framework: FastAPI + Uvicorn
 
-## Endpoints
-
-- POST `/infer`
-  - Body: `multipart/form-data` con campo `image` (png/jpg/jpeg)
-  - Respuesta 200: `{ emotion: 'joy'|'sadness'|'anger', confidence: number, model_version: string }`
-  - Errores: 400 (entrada inválida), 422 (sin rostro), 500 (inferencia)
+## Endpoints- GET /infer (informativo): devuelve detalles de uso del endpoint
+- GET /health: verifica disponibilidad del servicio
 
 ## Ejecutar local
 

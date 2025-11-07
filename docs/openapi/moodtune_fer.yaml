@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: MoodTune FER Service
+  version: "1.0.0"
+  description: |
+    Servicio de reconocimiento de emociones faciales (FER) para MoodTune.
+    - Detecta emoción a partir de una imagen (PNG/JPEG)
+    - Endpoint de salud para comprobar disponibilidad
+  termsOfService: https://moodtune.com/terms
+  contact:
+    name: Equipo 26 — MoodTune
+    url: https://moodtune.com/moodtune
+    email: equipo26@moodtune.com
+
+servers:
+  - url: https://api.moodtune.com/fer/v1
+    description: Entorno de Producción
+  - url: http://localhost:8081
+    description: Entorno local de desarrollo
+
+tags:
+  - name: Health
+  - name: Inference
+
+paths:
+  /health:
+    get:
+      tags: [Health]
+      summary: Verificación de salud del servicio
+      operationId: ferHealth
+      security: []
+      responses:
+        "200":
+          description: Servicio operativo
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+              examples:
+                ok:
+                  value: { status: ok }
+        "500":
+          description: Error en dependencia o modelo
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/Error" }
+
+  /infer:
+    post:
+      tags: [Inference]
+      summary: Detectar emoción a partir de una imagen
+      operationId: inferEmotion
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+              required: [image]
+      responses:
+        "200":
+          description: Inferencia realizada correctamente
+          content:
+            application/json:
+              schema: { $ref: "#/components/schemas/FerResponse" }
+              examples:
+                example:
+                  value: { emotion: joy, confidence: 0.92, model_version: onnx-ferplus-8:cpu }
+        "400": { description: Imagen inválida o formato no soportado, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "422": { description: No se detectó rostro, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+        "500": { description: Error interno de inferencia, content: { application/json: { schema: { $ref: "#/components/schemas/Error" } } } }
+    get:
+      tags: [Inference]
+      summary: Información del endpoint de inferencia
+      operationId: inferInfo
+      security: []
+      responses:
+        "200":
+          description: Detalle de uso del endpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  endpoint: { type: string }
+                  method: { type: string }
+                  field: { type: string }
+                  content_types:
+                    type: array
+                    items: { type: string }
+                  message: { type: string }
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum: [ok, error]
+      required: [status]
+    FerResponse:
+      type: object
+      properties:
+        emotion:
+          type: string
+          enum: [joy, sadness, anger]
+        confidence:
+          type: number
+          format: float
+        model_version:
+          type: string
+      required: [emotion, confidence]
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+      required: [error]
+
