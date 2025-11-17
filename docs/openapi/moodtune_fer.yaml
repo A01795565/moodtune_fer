@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: MoodTune FER Service
-  version: "1.0.0"
+  version: "1.2.0"
   description: |
     Servicio de reconocimiento de emociones faciales (FER) para MoodTune.
     - Detecta emoción a partir de una imagen (PNG/JPEG)

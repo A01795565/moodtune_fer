@@ -1,43 +1,456 @@
 {
-  "info": {
-    "_postman_id": "5f6cf8b7-1c8d-4bca-9f2f-4a4e8b5a4b9a",
-    "name": "MoodTune FER",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Postman collection for MoodTune FER (FastAPI)."
-  },
-  "item": [
-    {
-      "name": "Health - Check",
-      "request": {
-        "method": "GET",
-        "header": [ { "key": "Content-Type", "value": "application/json" } ],
-        "url": { "raw": "{{fer_base_url}}/health", "host": [ "{{fer_base_url}}" ], "path": [ "health" ] },
-        "description": "Service health check"
-      }
-    },
-    {
-      "name": "Infer Emotion",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "formdata",
-          "formdata": [
-            { "key": "image", "type": "file", "src": "{{sample_image}}" }
-          ]
+    "item": [
+        {
+            "name": "health",
+            "description": "",
+            "item": [
+                {
+                    "id": "7cf19f65-81e3-4a9e-b080-6aaac547f0a1",
+                    "name": "Verificación de salud del servicio",
+                    "request": {
+                        "name": "Verificación de salud del servicio",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "health"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "8ff982ef-a29e-48c0-a8ef-458b75457b60",
+                            "name": "Servicio operativo",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"status\": \"ok\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "e48b597e-b252-49c7-ae33-3b9b3a08b625",
+                            "name": "Error en dependencia o modelo",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "health"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
         },
-        "url": { "raw": "{{fer_base_url}}/infer", "host": [ "{{fer_base_url}}" ], "path": [ "infer" ] },
-        "description": "Send image (PNG/JPEG) to get emotion."
-      }
-    },
-    {
-      "name": "Infer Info (GET)",
-      "request": {
-        "method": "GET",
-        "header": [ { "key": "Content-Type", "value": "application/json" } ],
-        "url": { "raw": "{{fer_base_url}}/infer", "host": [ "{{fer_base_url}}" ], "path": [ "infer" ] },
-        "description": "Informational GET for /infer"
-      }
+        {
+            "name": "infer",
+            "description": "",
+            "item": [
+                {
+                    "id": "9363f1bf-fe02-496b-8668-556cdb7a81e7",
+                    "name": "Detectar emoción a partir de una imagen",
+                    "request": {
+                        "name": "Detectar emoción a partir de una imagen",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "infer"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "multipart/form-data"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "POST",
+                        "body": {
+                            "mode": "formdata",
+                            "formdata": [
+                                {
+                                    "description": {
+                                        "content": "(Required) ",
+                                        "type": "text/plain"
+                                    },
+                                    "key": "image",
+                                    "type": "file"
+                                }
+                            ]
+                        },
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "56c64adb-c2a9-48f6-b127-76bbe1fbf13f",
+                            "name": "Inferencia realizada correctamente",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "infer"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "multipart/form-data"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "image",
+                                            "type": "file"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"emotion\": \"sadness\",\n  \"confidence\": \"<float>\",\n  \"model_version\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "45932972-2f7e-4b48-9dc4-fc1c4f1ded16",
+                            "name": "Imagen inválida o formato no soportado",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "infer"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "multipart/form-data"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "image",
+                                            "type": "file"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Bad Request",
+                            "code": 400,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "2160f69c-60c2-4c1d-80f5-57e68e623e0a",
+                            "name": "No se detectó rostro",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "infer"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "multipart/form-data"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "image",
+                                            "type": "file"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                            "code": 422,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        },
+                        {
+                            "id": "621c4fc9-4a3b-4ed0-99f3-806dd8a2069a",
+                            "name": "Error interno de inferencia",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "infer"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Content-Type",
+                                        "value": "multipart/form-data"
+                                    },
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "POST",
+                                "body": {
+                                    "mode": "formdata",
+                                    "formdata": [
+                                        {
+                                            "description": {
+                                                "content": "(Required) ",
+                                                "type": "text/plain"
+                                            },
+                                            "key": "image",
+                                            "type": "file"
+                                        }
+                                    ]
+                                }
+                            },
+                            "status": "Internal Server Error",
+                            "code": 500,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"error\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                },
+                {
+                    "id": "b60e272a-c0e2-414a-940b-15ec8baf3ab3",
+                    "name": "Información del endpoint de inferencia",
+                    "request": {
+                        "name": "Información del endpoint de inferencia",
+                        "description": {},
+                        "url": {
+                            "path": [
+                                "infer"
+                            ],
+                            "host": [
+                                "{{baseUrl}}"
+                            ],
+                            "query": [],
+                            "variable": []
+                        },
+                        "header": [
+                            {
+                                "key": "Accept",
+                                "value": "application/json"
+                            }
+                        ],
+                        "method": "GET",
+                        "body": {},
+                        "auth": null
+                    },
+                    "response": [
+                        {
+                            "id": "15bd3bb3-a45b-4b44-a545-9cb867eb7922",
+                            "name": "Detalle de uso del endpoint",
+                            "originalRequest": {
+                                "url": {
+                                    "path": [
+                                        "infer"
+                                    ],
+                                    "host": [
+                                        "{{baseUrl}}"
+                                    ],
+                                    "query": [],
+                                    "variable": []
+                                },
+                                "header": [
+                                    {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                    }
+                                ],
+                                "method": "GET",
+                                "body": {}
+                            },
+                            "status": "OK",
+                            "code": 200,
+                            "header": [
+                                {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                }
+                            ],
+                            "body": "{\n  \"endpoint\": \"<string>\",\n  \"method\": \"<string>\",\n  \"field\": \"<string>\",\n  \"content_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"message\": \"<string>\"\n}",
+                            "cookie": [],
+                            "_postman_previewlanguage": "json"
+                        }
+                    ],
+                    "event": [],
+                    "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                    }
+                }
+            ]
+        }
+    ],
+    "event": [],
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "https://api.moodtune.com/fer/v1"
+        }
+    ],
+    "info": {
+        "_postman_id": "b0669231-0ff9-4260-adc1-abb8c5f00218",
+        "name": "MoodTune FER Service",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": {
+            "content": "Servicio de reconocimiento de emociones faciales (FER) para MoodTune.\n- Detecta emoción a partir de una imagen (PNG/JPEG)\n- Endpoint de salud para comprobar disponibilidad\n\n\nContact Support:\n Name: Equipo 26 — MoodTune\n Email: equipo26@moodtune.com",
+            "type": "text/plain"
+        }
     }
-  ]
 }
